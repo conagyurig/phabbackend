@@ -13,7 +13,7 @@ public class MyServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         SqlSetup tables = new SqlSetup();
-        resp.getWriter().write("<html> <head> <title>CMDMC</title> </head><body> <h1>Name from database: Craig </h1> </body> </html>");
+        resp.getWriter().write("<html> <head> <title>CMDMC</title> </head><body> <h1>Webpage Established</h1> </body> </html>");
         resp.getWriter().write(req.getServletPath());
     }
     @Override
