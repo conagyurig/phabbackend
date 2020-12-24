@@ -20,6 +20,11 @@ public class MyServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {
+        String reqBody=req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+        SelectProduct quantity = new SelectProduct("'4 flu'");
+        resp.setContentType("text/html");
+        String quant = new String(String.valueOf(quantity.quant));
+        resp.getWriter().write(quant + reqBody);
 
 
     }
