@@ -17,7 +17,7 @@ public class UpdateQuantity {
                 System.out.println(quant);
             }
             int update = quant + change;
-            stmt.execute("UPDATE shop_product SET quantity " + update +  " WHERE name = " + name1);
+            stmt.execute("UPDATE shop_product SET quantity = " + update +  " WHERE name = " + name1);
             rs.close();
             stmt.close();
             db.close();
