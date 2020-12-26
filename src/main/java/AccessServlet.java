@@ -1,4 +1,6 @@
 
+import com.google.gson.Gson;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +15,7 @@ public class AccessServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         //SqlSetup tables = new SqlSetup();
-        SelectProduct quantity = new SelectProduct("'4 flu'");
+        SelectProduct quantity = new SelectProduct("'4 flu'", "'Benylin'");
         resp.getWriter().write("<html> <head> <title>CMDMC</title> </head><body> <h1>Value Accessed " + quantity.quant + "</h1> </body> </html>");
         resp.getWriter().write(req.getServletPath());
     }
@@ -21,7 +23,9 @@ public class AccessServlet extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {
         String reqBody=req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-        SelectProduct quantity = new SelectProduct(reqBody);
+        Gson gson = new Gson();
+        Product p=gson.fromJson(reqBody,Product.class);
+        SelectProduct quantity = new SelectProduct(p.name,p.brand);
         resp.setContentType("text/html");
         String quant = new String(String.valueOf(quantity.quant));
         resp.getWriter().write(quant);

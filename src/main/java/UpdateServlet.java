@@ -15,7 +15,7 @@ public class UpdateServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         //SqlSetup tables = new SqlSetup();
-        SelectProduct quantity = new SelectProduct("'4 flu'");
+        SelectProduct quantity = new SelectProduct("'4 flu'", "'Benylin'");
         resp.getWriter().write("<html> <head> <title>CMDMC</title> </head><body> <h1>Value Accessed " + quantity.quant + "</h1> </body> </html>");
         resp.getWriter().write(req.getServletPath());
     }
@@ -25,8 +25,8 @@ public class UpdateServlet extends HttpServlet {
         String reqBody=req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         Gson gson = new Gson();
         Product p=gson.fromJson(reqBody,Product.class);
-        UpdateQuantity update = new UpdateQuantity(p.name, p.change);
-        SelectProduct quantity = new SelectProduct(p.name);
+        UpdateQuantity update = new UpdateQuantity(p.name, p.brand, p.change);
+        SelectProduct quantity = new SelectProduct(p.name, p.brand);
         resp.setContentType("text/html");
         String quant = new String(String.valueOf(quantity.quant));
         resp.getWriter().write(quant);
