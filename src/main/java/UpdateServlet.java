@@ -1,4 +1,6 @@
 
+import com.google.gson.Gson;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,8 +23,10 @@ public class UpdateServlet extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {
         String reqBody=req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-        UpdateQuantity update = new UpdateQuantity(reqBody, 5);
-        SelectProduct quantity = new SelectProduct(reqBody);
+        Gson gson = new Gson();
+        Product p=gson.fromJson(reqBody,Product.class);
+        UpdateQuantity update = new UpdateQuantity(p.name, p.change);
+        SelectProduct quantity = new SelectProduct(p.name);
         resp.setContentType("text/html");
         String quant = new String(String.valueOf(quantity.quant));
         resp.getWriter().write(quant);
