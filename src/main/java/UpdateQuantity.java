@@ -1,7 +1,10 @@
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UpdateQuantity {
     public int quant;
+    private int fullStock;
     private float sellPrice;
     private float buyPrice;
 
@@ -18,6 +21,7 @@ public class UpdateQuantity {
                 quant = rs.getInt("quantity");
                 sellPrice = rs.getFloat("sell_price");
                 buyPrice = rs.getFloat("buy_price");
+                fullStock = rs.getInt("full_stock");
                 System.out.println(quant);
             }
             if (change < 0) {
@@ -37,6 +41,24 @@ public class UpdateQuantity {
             }
             int update = quant + change;
             stmt.execute("UPDATE shop_product SET quantity = " + update + " WHERE name = " + name1 + " AND brand = " + brand1 + ";");
+            int hardmin = (int) (fullStock*0.1);
+            if(update<hardmin){
+                List<String> orders = new ArrayList<>();
+                orders.add(brand1 + "," + name1);
+                //we want to check all other members below their softmins e.g fullstock*0.2 and make order
+                ResultSet rset=stmt.executeQuery("SELECT * FROM shop_product WHERE id>0 ");
+                while(rset.next()){
+                    int fullStock1 = (rset.getInt("full_stock"));
+                    int quantity = rset.getInt("quantity");
+                    String brand2 = rset.getString("brand");
+                    String name2 = rset.getString("name");
+                    if(quantity < (fullStock1*0.2)){
+                        orders.add(brand2 + "," + name2);
+                        System.out.println(name2);
+                    }
+                }
+                //output the orders list to the wholesaler or email
+            }
             rs.close();
             stmt.close();
             db.close();
