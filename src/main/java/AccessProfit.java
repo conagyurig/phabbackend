@@ -16,10 +16,8 @@ public class AccessProfit extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         //SqlSetup tables = new SqlSetup();
-        String str="2020-12-27";
-        Date date=Date.valueOf(str);//converting string into sql date
-        System.out.println(date);
-        ProfitRequest profitRequest = new ProfitRequest(date);
+        String str="'2020-12-27'";
+        ProfitRequest profitRequest = new ProfitRequest(str);
         resp.getWriter().write("<html> <head> <title>CMDMC</title> </head><body> <h1>Profit Accessed " + profitRequest.profit + "</h1> </body> </html>");
         resp.getWriter().write(req.getServletPath());
     }
@@ -27,8 +25,7 @@ public class AccessProfit extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {
         String reqBody=req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-        Date date=Date.valueOf(reqBody);
-        ProfitRequest profitRequest = new ProfitRequest(date);
+        ProfitRequest profitRequest = new ProfitRequest(reqBody);
         resp.setContentType("text/html");
         String profit = new String(String.valueOf(profitRequest.profit));
         resp.getWriter().write(profit);

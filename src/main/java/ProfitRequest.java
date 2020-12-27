@@ -2,7 +2,7 @@ import java.sql.*;
 
 public class ProfitRequest{
     public float profit;
-    public ProfitRequest(Date date){
+    public ProfitRequest(String date){
         String dbUrl = System.getenv("JDBC_DATABASE_URL");
         try {
             Class.forName("org.postgresql.Driver");
