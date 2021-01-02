@@ -24,7 +24,7 @@ public class DetailsServlet extends HttpServlet {
             IOException {
         String reqBody=req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         AccessDetails details = new AccessDetails(reqBody);
-        Product p = new Product(details.name, details.brand, details.saleLimit, details.unitPrice);
+        Product p = new Product(details.name, details.brand, details.saleLimit, details.unitPrice, details.amount);
         System.out.println(p.name);
         Gson gson = new Gson();
         String jsonString = gson.toJson(p);

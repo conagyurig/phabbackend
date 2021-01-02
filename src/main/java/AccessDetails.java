@@ -5,6 +5,7 @@ String brand;
 String name;
 String saleLimit;
 float unitPrice;
+String amount;
     public AccessDetails(String id){
         int intId = Integer.parseInt(id);
         System.out.println(intId);
@@ -20,6 +21,7 @@ float unitPrice;
                 this.unitPrice = rs.getFloat("sell_price");
                 this.brand = rs.getString("brand");
                 this.name = rs.getString("name");
+                this.amount = rs.getString("amount");
                 int var = rs.getInt("limit_of_one");
                 if (var == 1) {
                     this.saleLimit = "yes";
