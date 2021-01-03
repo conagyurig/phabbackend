@@ -8,10 +8,10 @@ public class MailSender {
         Email from = new Email("phabpharmacy@gmail.com");
         String message = new String();
         for (int i = 0; i<products.size(); i++){
-            message = message + "name:" + products.get(i).name + " brand: " + products.get(i).brand + " quantity: " + products.get(i).change + "\n";
+            message = message + "name: " + products.get(i).name + " brand: " + products.get(i).brand + " quantity: " + products.get(i).change + "\n";
         }
         String subject = "PhabPharmacy Order";
-        Email to = new Email("craigfatfree@gmail.com");
+        Email to = new Email("thewholesalerpharmacy@gmail.com");
         Content content = new Content("text/plain", message);
         Mail mail = new Mail(from, subject, to, content);
 

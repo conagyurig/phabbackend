@@ -44,7 +44,7 @@ public class UpdateQuantity {
             int hardmin = (int) (fullStock*0.1);
             if(update<hardmin){
                 List<Product> order = new ArrayList<>();
-                order.add(new Product(name1, brand1, fullStock-quant));
+                //order.add(new Product(name1, brand1, fullStock-quant));
                 //we want to check all other members below their softmins e.g fullstock*0.2 and make order
                 ResultSet rset=stmt.executeQuery("SELECT * FROM shop_product WHERE id>0 ");
                 while(rset.next()){
