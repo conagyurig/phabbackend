@@ -1,13 +1,18 @@
 import com.sendgrid.*;
 
 import java.io.IOException;
+import java.util.List;
 
 public class MailSender {
-    public MailSender(){
+    public MailSender(List<Product> products){
         Email from = new Email("phabpharmacy@gmail.com");
-        String subject = "Hello World from the SendGrid Java Library!";
+        String message = new String();
+        for (int i = 0; i<products.size(); i++){
+            message = message + "name:" + products.get(i).name + " brand: " + products.get(i).brand + " quantity: " + products.get(i).change + "\n";
+        }
+        String subject = "PhabPharmacy Order";
         Email to = new Email("craigfatfree@gmail.com");
-        Content content = new Content("text/plain", "Hello, Email!");
+        Content content = new Content("text/plain", message);
         Mail mail = new Mail(from, subject, to, content);
 
         SendGrid sg = new SendGrid(System.getenv("phabpharmacy"));

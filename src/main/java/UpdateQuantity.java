@@ -43,8 +43,8 @@ public class UpdateQuantity {
             stmt.execute("UPDATE shop_product SET quantity = " + update + " WHERE name = " + name1 + " AND brand = " + brand1 + ";");
             int hardmin = (int) (fullStock*0.1);
             if(update<hardmin){
-                List<String> orders = new ArrayList<>();
-                orders.add(brand1 + "," + name1);
+                List<Product> order = new ArrayList<>();
+                order.add(new Product(name1, brand1, fullStock-quant));
                 //we want to check all other members below their softmins e.g fullstock*0.2 and make order
                 ResultSet rset=stmt.executeQuery("SELECT * FROM shop_product WHERE id>0 ");
                 while(rset.next()){
@@ -52,12 +52,14 @@ public class UpdateQuantity {
                     int quantity = rset.getInt("quantity");
                     String brand2 = rset.getString("brand");
                     String name2 = rset.getString("name");
+                    int change2 = fullStock1 - quantity;
                     if(quantity < (fullStock1*0.2)){
-                        orders.add(brand2 + "," + name2);
+                        order.add(new Product(name2, brand2, change2));
                         System.out.println(name2);
                     }
                 }
                 //output the orders list to the wholesaler or email
+                MailSender newMail = new MailSender(order);
             }
             rs.close();
             stmt.close();
