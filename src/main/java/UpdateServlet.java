@@ -25,6 +25,7 @@ public class UpdateServlet extends HttpServlet {
         String reqBody=req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         Gson gson = new Gson();
         Product p=gson.fromJson(reqBody,Product.class);
+        MailSender newMail = new MailSender();
         UpdateQuantity update = new UpdateQuantity(p.name, p.brand, p.change);
         SelectProduct quantity = new SelectProduct(p.name, p.brand);
         resp.setContentType("text/html");
