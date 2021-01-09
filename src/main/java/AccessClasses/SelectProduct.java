@@ -1,3 +1,5 @@
+package AccessClasses;
+
 import java.sql.*;
 
 public class SelectProduct{

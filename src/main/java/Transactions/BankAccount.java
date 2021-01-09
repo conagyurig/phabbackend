@@ -1,3 +1,5 @@
+package Transactions;
+
 class BankAccount {
 
     public String id;     // id is the acc number

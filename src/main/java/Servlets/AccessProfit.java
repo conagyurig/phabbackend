@@ -1,35 +1,35 @@
+package Servlets;
 
 import com.google.gson.Gson;
-
+import AccessClasses.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.stream.Collectors;
 
-@WebServlet(urlPatterns={"/details"},loadOnStartup = 1)
-public class DetailsServlet extends HttpServlet {
+@WebServlet(urlPatterns={"/accessProfit"},loadOnStartup = 1)
+public class AccessProfit extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         //SqlSetup tables = new SqlSetup();
-        SelectProduct quantity = new SelectProduct("'4 flu'", "'Benylin'");
-        resp.getWriter().write("<html> <head> <title>CMDMC</title> </head><body> <h1>Value Accessed " + quantity.quant + "</h1> </body> </html>");
+        String str="'2020-12-27'";
+        ProfitRequest profitRequest = new ProfitRequest(str);
+        resp.getWriter().write("<html> <head> <title>CMDMC</title> </head><body> <h1>Profit Accessed " + profitRequest.profit + "</h1> </body> </html>");
         resp.getWriter().write(req.getServletPath());
     }
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {
         String reqBody=req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-        AccessDetails details = new AccessDetails(reqBody);
-        Product p = new Product(details.name, details.brand, details.saleLimit, details.unitPrice, details.amount);
-        System.out.println(p.name);
-        Gson gson = new Gson();
-        String jsonString = gson.toJson(p);
-        resp.setContentType("application/json");
-        resp.getWriter().write(jsonString);
+        ProfitRequest profitRequest = new ProfitRequest(reqBody);
+        resp.setContentType("text/html");
+        String profit = new String(String.valueOf(profitRequest.profit));
+        resp.getWriter().write(profit);
 
 
     }

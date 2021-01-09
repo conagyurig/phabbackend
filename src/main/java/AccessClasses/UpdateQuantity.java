@@ -1,3 +1,5 @@
+package AccessClasses;
+import Transactions.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,14 +54,19 @@ public class UpdateQuantity {
                     int quantity = rset.getInt("quantity");
                     String brand2 = rset.getString("brand");
                     String name2 = rset.getString("name");
+                    float unitprice2 = rset.getFloat("buy_price");
                     int change2 = fullStock1 - quantity;
                     if(quantity < (fullStock1*0.2)){
-                        order.add(new Product(name2, brand2, change2));
+                        order.add(new Product(name2, brand2, change2, unitprice2));
                         System.out.println(name2);
                     }
                 }
-                //output the orders list to the wholesaler or email
+                //output the orders list to the wholesaler email
                 MailSender newMail = new MailSender(order);
+                //transfer required money
+                //At the moment bank server seems to be down, but once fixed, transactions will be automatic
+                //with code below:
+                //Transaction newTransaction = new Transaction(order);
             }
             rs.close();
             stmt.close();

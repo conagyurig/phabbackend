@@ -1,3 +1,5 @@
+package AccessClasses;
+
 import java.sql.*;
 
 public class AccessDetails {
@@ -36,6 +38,21 @@ String amount;
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
+    }
+    public String getBrand() {
+        return brand;
+    }
+    public String getName() {
+        return name;
+    }
+    public String getSaleLimit() {
+        return saleLimit;
+    }
+    public float getUnitPrice() {
+        return unitPrice;
+    }
+    public String getAmount() {
+        return amount;
     }
 }
 

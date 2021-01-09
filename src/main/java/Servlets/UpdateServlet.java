@@ -1,3 +1,5 @@
+package Servlets;
+import AccessClasses.*;
 
 import com.google.gson.Gson;
 
@@ -7,10 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
-@WebServlet(urlPatterns={"/access"},loadOnStartup = 1)
-public class AccessServlet extends HttpServlet {
+@WebServlet(urlPatterns={"/update"},loadOnStartup = 1)
+public class UpdateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
@@ -24,13 +28,15 @@ public class AccessServlet extends HttpServlet {
             IOException {
         String reqBody=req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         Gson gson = new Gson();
-        Product p=gson.fromJson(reqBody,Product.class);
-        SelectProduct quantity = new SelectProduct(p.name,p.brand);
+        Product p=gson.fromJson(reqBody, Product.class);
+        List<Product> order = new ArrayList<>();
+        order.add(new Product("Test", "Product", 5));
+        MailSender newMail = new MailSender(order);
+        UpdateQuantity update = new UpdateQuantity(p.name, p.brand, p.change);
+        SelectProduct quantity = new SelectProduct(p.name, p.brand);
         resp.setContentType("text/html");
         String quant = new String(String.valueOf(quantity.quant));
         resp.getWriter().write(quant);
-
-
     }
 
 }

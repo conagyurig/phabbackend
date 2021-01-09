@@ -1,4 +1,7 @@
-
+package Servlets;
+import AccessClasses.*;
+import AccessClasses.*;
+import AccessClasses.SelectProduct;
 import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
@@ -7,12 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
-@WebServlet(urlPatterns={"/update"},loadOnStartup = 1)
-public class UpdateServlet extends HttpServlet {
+@WebServlet(urlPatterns={"/details"},loadOnStartup = 1)
+public class DetailsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
@@ -25,18 +26,13 @@ public class UpdateServlet extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {
         String reqBody=req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+        AccessDetails details = new AccessDetails(reqBody);
+        Product p = new Product(details.getName(), details.getBrand(), details.getSaleLimit(), details.getUnitPrice(), details.getAmount());
+        System.out.println(p.name);
         Gson gson = new Gson();
-        Product p=gson.fromJson(reqBody,Product.class);
-        List<Product> order = new ArrayList<>();
-        order.add(new Product("Test", "Product", 5));
-        MailSender newMail = new MailSender(order);
-        UpdateQuantity update = new UpdateQuantity(p.name, p.brand, p.change);
-        SelectProduct quantity = new SelectProduct(p.name, p.brand);
-        resp.setContentType("text/html");
-        String quant = new String(String.valueOf(quantity.quant));
-        resp.getWriter().write(quant);
-
-
+        String jsonString = gson.toJson(p);
+        resp.setContentType("application/json");
+        resp.getWriter().write(jsonString);
     }
 
 }
