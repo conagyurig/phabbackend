@@ -6,6 +6,7 @@ public class AccessCustomers {
     Customers customers;
     public AccessCustomers(){
         String dbUrl = System.getenv("JDBC_DATABASE_URL");
+        this.customers = new Customers();
             try {
                 Class.forName("org.postgresql.Driver");
                 Connection db = DriverManager.getConnection(dbUrl);
