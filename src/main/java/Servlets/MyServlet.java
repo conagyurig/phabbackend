@@ -15,7 +15,7 @@ public class MyServlet extends HttpServlet {
         resp.setContentType("text/html");
         //only needed to execute this once to initially set up database
         //SqlSetup tables = new SqlSetup();
-        SQLSetup2 query = new SQLSetup2();
+        //SQLSetup2 query = new SQLSetup2();
         resp.getWriter().write("<html> <head> <title>CMDMC</title> </head><body> <h1>Webpage Established: Home  </h1> </body> </html>");
         resp.getWriter().write(req.getServletPath());
     }
