@@ -27,8 +27,9 @@ public class CustomerServlet extends HttpServlet {
             IOException {
         String reqBody=req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         AccessCustomers query = new AccessCustomers();
+        Customers customers = query.getCustomers();
         Gson gson = new Gson();
-        String jsonString = gson.toJson(query.getCustomers());
+        String jsonString = gson.toJson(customers);
         resp.setContentType("application/json");
         resp.getWriter().write(jsonString);
     }
