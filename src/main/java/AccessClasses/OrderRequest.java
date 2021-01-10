@@ -22,7 +22,7 @@ public class OrderRequest {
                 ResultSet rs2 = stmt.executeQuery(sqlStr2);
                 while (rs2.next()){
                     //String name,String brand, int change, float unitPrice
-                    Product p = new Product(rs2.getString("name"), rs2.getString("brand"), rs2.getInt("change"), rs2.getFloat("sell_price"));
+                    Product p = new Product(rs2.getString("name"), rs2.getString("brand"), rs2.getInt("quantity"), rs2.getFloat("sell_price"));
                     products.add(p);
                 }
             }
