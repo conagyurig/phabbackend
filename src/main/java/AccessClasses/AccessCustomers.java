@@ -10,7 +10,7 @@ public class AccessCustomers {
             Class.forName("org.postgresql.Driver");
             Connection db = DriverManager.getConnection(dbUrl);
             Statement stmt = db.createStatement();
-            String sqlStr = "SELECT * FROM Customers";
+            String sqlStr = "SELECT * FROM customer";
             ResultSet rs = stmt.executeQuery(sqlStr);
                 if (rs.next()) {
                     //String address, String email, String first_name, int id, String last_name, String phone_no, String postcode){
