@@ -26,10 +26,12 @@ public class AccessOrders extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {
         String reqBody=req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-        ProfitRequest profitRequest = new ProfitRequest(reqBody);
-        resp.setContentType("text/html");
-        String profit = new String(String.valueOf(profitRequest.profit));
-        resp.getWriter().write(profit);
+        OrderRequest query = new OrderRequest(Integer.parseInt(reqBody));
+        Order order = new Order(query.getOrder(),1);
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(order);
+        resp.setContentType("application/json");
+        resp.getWriter().write(jsonString);
 
 
     }
