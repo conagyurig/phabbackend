@@ -13,7 +13,7 @@ public class AccessCustomers {
                 Statement stmt = db.createStatement();
                 String sqlStr = "SELECT * FROM customer";
                 ResultSet rs = stmt.executeQuery(sqlStr);
-                if (rs.next()) {
+                while (rs.next()) {
                     //String address, String email, String first_name, int id, String last_name, String phone_no, String postcode){
                     Customer customer = new Customer(rs.getString("address"),rs.getString("email"),rs.getString("first_name"),rs.getInt("id"),rs.getString("last_name"),rs.getString("phone_no"),rs.getString("postcode"));
                     System.out.println("created customer");
