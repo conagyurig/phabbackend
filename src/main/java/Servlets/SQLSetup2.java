@@ -12,8 +12,9 @@ public class SQLSetup2 {
             Class.forName("org.postgresql.Driver");
             Connection db = DriverManager.getConnection(dbUrl);
             Statement stmt = db.createStatement();
-            stmt.execute("ALTER TABLE ordered_product " +
-                    "ADD COLUMN brand VARCHAR;");
+            stmt.execute("INSERT INTO customer(first_name,last_name,email,postcode) VALUES('Craig','Young','cyy@gmail.com','SW6 2BZ');");
+            //stmt.execute("ALTER TABLE ordered_product " +
+             //       "ADD COLUMN brand VARCHAR;");
             stmt.close();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
